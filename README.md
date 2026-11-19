@@ -58,3 +58,10 @@ Reversed bounds are swapped rather than rejected, because callers routinely comp
 bounds from cursor positions and a silent swap is less surprising than a value
 outside both bounds. The one asymmetry to remember is the interval convention:
 `wrap` excludes its upper bound, `clamp` and `reflect` include it.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
